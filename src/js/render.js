@@ -1,0 +1,316 @@
+export async function initContent() {
+  try {
+    // Menambahkan cache buster agar Vite selalu update JSON di browser
+    const response = await fetch('/data/content.json?v=' + new Date().getTime());
+    const data = await response.json();
+    renderContent(data);
+  } catch (error) {
+    console.error('Error loading content:', error);
+  }
+}
+
+function getYoutubeEmbedUrl(url, isHero = false) {
+  if (!url) return null;
+  let videoId = '';
+  if (url.includes('youtube.com/watch?v=')) {
+    videoId = url.split('v=')[1].split('&')[0];
+  } else if (url.includes('youtu.be/')) {
+    videoId = url.split('youtu.be/')[1].split('?')[0];
+  } else if (url.includes('youtube.com/embed/')) {
+    videoId = url.split('embed/')[1].split('?')[0];
+  }
+
+  if (videoId) {
+     const params = isHero ? '?autoplay=1&mute=1&controls=0&loop=1&playlist=' + videoId : '?controls=1';
+     return `https://www.youtube.com/embed/${videoId}${params}`;
+  }
+  return null;
+}
+
+function renderContent(data) {
+  // 1. Hero Section
+  const heroContent = document.getElementById('hero-content');
+  const heroBg = document.getElementById('hero-bg-container');
+  
+  if (data.hero && heroContent && heroBg) {
+    if (data.hero.backgroundVideo) {
+      const ytUrl = getYoutubeEmbedUrl(data.hero.backgroundVideo, true);
+      if (ytUrl) {
+        heroBg.innerHTML = `
+          <iframe src="${ytUrl}" class="hero-video" style="width: 100vw; height: 56.25vw; min-height: 100vh; min-width: 177.77vh; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none;" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          <div class="hero-overlay"></div>
+        `;
+      } else {
+        heroBg.innerHTML = `
+          <video autoplay muted loop playsinline class="hero-video">
+            <source src="${data.hero.backgroundVideo}" type="video/mp4">
+          </video>
+          <div class="hero-overlay"></div>
+        `;
+      }
+    } else {
+      heroBg.innerHTML = `
+        <img src="${data.hero.backgroundImage}" alt="Hero Background" loading="eager">
+        <div class="hero-overlay"></div>
+      `;
+    }
+    
+    heroContent.innerHTML = `
+      <div class="hero-badge animate-fade-up">
+        <span class="stars">★★★★★</span>
+        <span>${data.hero.badge}</span>
+      </div>
+      <h1 class="hero-title animate-fade-up delay-1">
+        ${data.hero.title}
+      </h1>
+      <p class="hero-subtitle animate-fade-up delay-2">
+        ${data.hero.subtitle}
+      </p>
+      <a href="${data.hero.whatsappLink}"
+        class="btn btn-primary hero-btn animate-fade-up delay-3" target="_blank">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+        </svg>
+        ${data.hero.buttonText}
+      </a>
+    `;
+  }
+
+  // 2. Services Section
+  const servicesHeader = document.getElementById('services-header');
+  const servicesGrid = document.getElementById('services-grid');
+  
+  if (data.sections.services && servicesHeader && servicesGrid) {
+    servicesHeader.innerHTML = `
+      <span class="section-tag animate-on-scroll">${data.sections.services.tag}</span>
+      <h2 class="section-title animate-on-scroll">${data.sections.services.title}</h2>
+    `;
+    
+    servicesGrid.innerHTML = data.sections.services.items.map(item => `
+      <div class="service-card animate-on-scroll" id="service-${item.id}">
+        <div class="service-img">
+          <img src="${item.image}" alt="${item.title}" loading="lazy">
+          ${item.video ? (
+            getYoutubeEmbedUrl(item.video) 
+            ? `<iframe class="yt-hover" src="${getYoutubeEmbedUrl(item.video)}" style="position: absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; opacity:0; transition: opacity 0.3s;" frameborder="0" allow="autoplay; encrypted-media"></iframe>`
+            : `<video src="${item.video}" muted loop playsinline></video>`
+          ) : ''}
+          <div class="service-img-overlay"></div>
+        </div>
+        <div class="service-content">
+          <div class="service-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M12 6v6l4 2" />
+            </svg>
+          </div>
+          <h3>${item.title}</h3>
+          <p>${item.description}</p>
+          <a href="${item.link}" class="service-link" target="_blank">
+            Selengkapnya
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    `).join('');
+
+    // Add Video Hover Interactivity
+    const serviceCards = document.querySelectorAll('.service-card');
+    serviceCards.forEach(card => {
+      const video = card.querySelector('.service-img video');
+      const ytFrame = card.querySelector('.service-img .yt-hover');
+      
+      card.addEventListener('mouseenter', () => {
+        if (video) video.play().catch(e => console.log('Video auto-play prevented', e));
+        if (ytFrame && !ytFrame.src.includes('autoplay=1')) {
+          const originalSrc = ytFrame.src;
+          ytFrame.src = originalSrc.includes('?') ? originalSrc + '&autoplay=1&mute=1' : originalSrc + '?autoplay=1&mute=1';
+          ytFrame.style.opacity = '1';
+        } else if (ytFrame) {
+          ytFrame.style.opacity = '1';
+        }
+      });
+      card.addEventListener('mouseleave', () => {
+        if (video) video.pause();
+        if (ytFrame) ytFrame.style.opacity = '0';
+      });
+    });
+  }
+
+  // 3. Gallery Section
+  const galleryHeader = document.getElementById('gallery-header');
+  const galleryGrid = document.getElementById('gallery-grid');
+  const galleryNote = document.getElementById('gallery-note');
+  
+  if (data.sections.gallery && galleryHeader && galleryGrid) {
+    galleryHeader.innerHTML = `
+      <span class="section-tag animate-on-scroll">${data.sections.gallery.tag}</span>
+      <h2 class="section-title animate-on-scroll">${data.sections.gallery.title}</h2>
+      <p class="section-desc animate-on-scroll">${data.sections.gallery.description}</p>
+    `;
+    
+    galleryGrid.innerHTML = data.sections.gallery.items.map((item, index) => `
+      <div class="gallery-item ${item.large ? 'gallery-item-large' : ''} animate-on-scroll" id="gallery-item-${index + 1}">
+        <img src="${item.image}" alt="${item.label}" loading="lazy">
+        <div class="gallery-overlay">
+          <span>${item.label}</span>
+        </div>
+      </div>
+    `).join('');
+    
+    if (galleryNote) {
+      galleryNote.textContent = data.sections.gallery.note;
+      galleryNote.classList.add('animate-on-scroll');
+    }
+  }
+
+  // 3.5 Video Section
+  const videoHeader = document.getElementById('video-header');
+  const videoGrid = document.getElementById('video-grid');
+  
+  if (data.sections.videos && videoHeader && videoGrid) {
+    videoHeader.innerHTML = `
+      <span class="section-tag animate-on-scroll">${data.sections.videos.tag}</span>
+      <h2 class="section-title animate-on-scroll">${data.sections.videos.title}</h2>
+      <p class="section-desc animate-on-scroll">${data.sections.videos.description}</p>
+    `;
+    
+    videoGrid.innerHTML = data.sections.videos.items.map(item => `
+      <div class="video-card animate-on-scroll">
+        ${getYoutubeEmbedUrl(item.src) ? `
+          <iframe width="100%" style="aspect-ratio: 16/9;" src="${getYoutubeEmbedUrl(item.src)}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        ` : `
+          <video width="100%" controls poster="${item.thumbnail}" preload="metadata">
+            <source src="${item.src}" type="video/mp4">
+            Browser Anda tidak mendukung HTML5 video.
+          </video>
+        `}
+        <h3 class="video-title">${item.title}</h3>
+      </div>
+    `).join('');
+  }
+
+  // 4. About Section
+  const aboutContainer = document.getElementById('about-container');
+  if (data.sections.about && aboutContainer) {
+    aboutContainer.innerHTML = `
+      <div class="about-visual animate-on-scroll">
+        <div class="about-img-wrapper">
+          <img src="${data.sections.about.image}" alt="About Deoksi" loading="lazy">
+        </div>
+        ${data.sections.about.stats.map((stat, i) => `
+          <div class="about-floating-card ${i === 1 ? 'card-2' : ''}">
+            <div class="floating-stat">
+              <span class="stat-number" data-target="${stat.number}">0</span><span class="stat-plus">+</span>
+              <span class="stat-label">${stat.label}</span>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+      <div class="about-text animate-on-scroll">
+        <span class="section-tag">${data.sections.about.tag}</span>
+        <h2 class="section-title">${data.sections.about.title}</h2>
+        <p class="about-desc">${data.sections.about.description1}</p>
+        <p class="about-desc-2">${data.sections.about.description2}</p>
+        <div class="about-features">
+          ${data.sections.about.features.map(feature => `
+            <div class="about-feature">
+              <div class="feature-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                  <polyline points="22 4 12 14.01 9 11.01" />
+                </svg>
+              </div>
+              <span>${feature}</span>
+            </div>
+          `).join('')}
+        </div>
+        <a href="${data.sections.about.whatsappLink}" class="btn btn-primary" target="_blank">${data.sections.about.buttonText}</a>
+      </div>
+    `;
+  }
+
+  // 5. Location Section
+  const locationHeader = document.getElementById('location-header');
+  const locationMap = document.getElementById('location-map');
+  const locationInfo = document.getElementById('location-info');
+  
+  if (data.sections.location && locationHeader && locationMap && locationInfo) {
+    locationHeader.innerHTML = `
+      <span class="section-tag animate-on-scroll">${data.sections.location.tag}</span>
+      <h2 class="section-title animate-on-scroll">${data.sections.location.title}</h2>
+      <p class="section-desc animate-on-scroll">${data.sections.location.description}</p>
+    `;
+    
+    locationMap.innerHTML = `
+      <iframe src="${data.sections.location.mapEmbed}" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    `;
+    
+    locationInfo.innerHTML = data.sections.location.info.map(item => `
+      <div class="info-card" id="info-${item.type}">
+        <div class="info-icon">
+          ${getIconForInfo(item.type)}
+        </div>
+        <div class="info-text">
+          <h4>${item.label}</h4>
+          <p>${item.value}</p>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // 6. Footer
+  const footer = document.getElementById('footer');
+  if (data.footer && footer) {
+    footer.innerHTML = `
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <a href="/index.html" class="brand-logo footer-logo-override">
+              <div class="brand-title">
+                <span class="brand-orange">DEOKSI</span><span class="brand-dark">Clinic</span>
+              </div>
+              <div class="brand-subtitle">BEAUTY CENTER</div>
+            </a>
+            <p class="footer-desc">${data.footer.description}</p>
+            <div class="footer-socials">
+              <a href="${data.footer.socials.instagram}" class="social-link" aria-label="Instagram"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" /></svg></a>
+              <a href="${data.footer.socials.tiktok}" class="social-link" aria-label="TikTok"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.88-2.88A2.89 2.89 0 0 1 9.49 12.4a2.86 2.86 0 0 1 .89.14V9.05a6.33 6.33 0 0 0-1-.05A6.34 6.34 0 0 0 3 15.29a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.76a8.32 8.32 0 0 0 4.87 1.57V6.86a4.94 4.94 0 0 1-.96-.17z" /></svg></a>
+              <a href="${data.footer.socials.whatsapp}" class="social-link" aria-label="WhatsApp"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" /></svg></a>
+            </div>
+          </div>
+          <div class="footer-links">
+            <h4>Menu</h4>
+            <ul>
+              <li><a href="/index.html">Beranda</a></li>
+              <li><a href="/layanan.html">Layanan</a></li>
+              <li><a href="/galeri.html">Galeri</a></li>
+              <li><a href="/tentang.html">Tentang</a></li>
+              <li><a href="/lokasi.html">Lokasi</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2025 Deoksi Beauty Clinic. All rights reserved.</p>
+        </div>
+      </div>
+    `;
+  }
+
+  // Update Global WA Links
+  document.querySelectorAll('.wa-link').forEach(link => {
+    link.href = data.hero.whatsappLink;
+  });
+}
+
+function getIconForInfo(type) {
+  const icons = {
+    address: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>',
+    hours: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg>',
+    phone: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /></svg>',
+    email: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" /></svg>'
+  };
+  return icons[type] || '';
+}

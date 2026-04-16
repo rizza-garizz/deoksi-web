@@ -1,0 +1,28 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[[redirects]]
+  from = "/layanan"
+  to = "/layanan.html"
+  status = 200
+
+[[redirects]]
+  from = "/galeri"
+  to = "/galeri.html"
+  status = 200
+
+[[redirects]]
+  from = "/tentang"
+  to = "/tentang.html"
+  status = 200
+
+[[redirects]]
+  from = "/lokasi"
+  to = "/lokasi.html"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

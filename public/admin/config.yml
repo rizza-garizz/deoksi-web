@@ -1,0 +1,92 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/assets/images"
+public_folder: "/assets/images"
+
+collections:
+  - name: "content"
+    label: "Website Content"
+    files:
+      - label: "Halaman Utama"
+        name: "home"
+        file: "public/data/content.json"
+        fields:
+          - {label: "Hero Section", name: "hero", widget: "object", fields: [
+              {label: "Badge Text", name: "badge", widget: "string"},
+              {label: "Title", name: "title", widget: "text"},
+              {label: "Subtitle", name: "subtitle", widget: "text"},
+              {label: "Button Text", name: "buttonText", widget: "string"},
+              {label: "WhatsApp Link", name: "whatsappLink", widget: "string"},
+              {label: "Background Image", name: "backgroundImage", widget: "image", required: false},
+              {label: "Background Video (Link YouTube / MP4)", name: "backgroundVideo", widget: "string", required: false}
+            ]}
+          - {label: "Sections", name: "sections", widget: "object", fields: [
+              {label: "Services", name: "services", widget: "object", fields: [
+                {label: "Tag", name: "tag", widget: "string"},
+                {label: "Title", name: "title", widget: "string"},
+                {label: "List Layanan", name: "items", widget: "list", fields: [
+                  {label: "ID", name: "id", widget: "string"},
+                  {label: "Title", name: "title", widget: "string"},
+                  {label: "Description", name: "description", widget: "text"},
+                  {label: "Image", name: "image", widget: "image"},
+                  {label: "Video Hover (Link YouTube / MP4)", name: "video", widget: "string", required: false},
+                  {label: "Link WhatsApp", name: "link", widget: "string"}
+                ]}
+              ]},
+              {label: "Gallery", name: "gallery", widget: "object", fields: [
+                {label: "Tag", name: "tag", widget: "string"},
+                {label: "Title", name: "title", widget: "string"},
+                {label: "Description", name: "description", widget: "text"},
+                {label: "Note", name: "note", widget: "text"},
+                {label: "Galeri Foto", name: "items", widget: "list", fields: [
+                  {label: "Image", name: "image", widget: "image"},
+                  {label: "Label", name: "label", widget: "string"},
+                  {label: "Format Besar?", name: "large", widget: "boolean", default: false, required: false}
+                ]}
+              ]},
+              {label: "Video Treatment", name: "videos", widget: "object", fields: [
+                {label: "Tag", name: "tag", widget: "string"},
+                {label: "Title", name: "title", widget: "string"},
+                {label: "Description", name: "description", widget: "text"},
+                {label: "Video List", name: "items", widget: "list", fields: [
+                  {label: "Title", name: "title", widget: "string"},
+                  {label: "Link Video (YouTube URL)", name: "src", widget: "string"},
+                  {label: "Video Thumbnail", name: "thumbnail", widget: "image"}
+                ]}
+              ]},
+              {label: "About Us", name: "about", widget: "object", fields: [
+                {label: "Tag", name: "tag", widget: "string"},
+                {label: "Title", name: "title", widget: "string"},
+                {label: "Description 1", name: "description1", widget: "text"},
+                {label: "Description 2", name: "description2", widget: "text"},
+                {label: "Image", name: "image", widget: "image"},
+                {label: "Button Text", name: "buttonText", widget: "string"},
+                {label: "WhatsApp", name: "whatsappLink", widget: "string"},
+                {label: "Statistik", name: "stats", widget: "list", fields: [
+                  {label: "Number", name: "number", widget: "number"},
+                  {label: "Label", name: "label", widget: "string"}
+                ]},
+                {label: "Features", name: "features", widget: "list", field: {label: "Feature Item", name: "feature", widget: "string"}}
+              ]},
+              {label: "Location", name: "location", widget: "object", fields: [
+                {label: "Tag", name: "tag", widget: "string"},
+                {label: "Title", name: "title", widget: "string"},
+                {label: "Description", name: "description", widget: "text"},
+                {label: "Map Embed Link", name: "mapEmbed", widget: "string"},
+                {label: "Info Details", name: "info", widget: "list", fields: [
+                  {label: "Type (address/hours/phone/email)", name: "type", widget: "string"},
+                  {label: "Label", name: "label", widget: "string"},
+                  {label: "Value", name: "value", widget: "string"}
+                ]}
+              ]}
+            ]}
+          - {label: "Footer", name: "footer", widget: "object", fields: [
+              {label: "Description", name: "description", widget: "text"},
+              {label: "Social Links", name: "socials", widget: "object", fields: [
+                {label: "Instagram", name: "instagram", widget: "string"},
+                {label: "TikTok", name: "tiktok", widget: "string"},
+                {label: "WhatsApp", name: "whatsapp", widget: "string"}
+              ]}
+            ]}
