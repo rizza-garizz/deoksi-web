@@ -1,0 +1,215 @@
+{
+  "hero": {
+    "badge": "Rating 4.9/5",
+    "title": "Unlock Your<br><em>Secret Beauty</em>",
+    "subtitle": "Perawatan Eksklusif Untuk Slow Aging dan Antioxidative Care di Kota Malang",
+    "buttonText": "Booking Sekarang",
+    "whatsappLink": "https://wa.me/6282333344919?text=Halo%20saya%20mau%20tanya",
+    "backgroundImage": "/assets/images/hero_clinic.png",
+    "backgroundVideo": "https://res.cloudinary.com/dwarsapox/video/upload/f_auto,q_auto/v1776465403/4264880-uhd_3840_2160_30fps_f3bhai.mp4"
+  },
+  "sections": {
+    "promo": {
+      "isFlyer": true,
+      "items": [
+        {
+          "title": "Welcome Promo",
+          "subtitle": "Diskon 20% Member Baru",
+          "image": "/assets/images/service_aging.png",
+          "color": "#F7903E",
+          "link": "https://wa.me/6282333344919?text=Halo%20saya%20mau%20klaim%20promo%20member%20baru"
+        },
+        {
+          "title": "Glowing Package",
+          "subtitle": "Treatment Mulai 199k",
+          "image": "/assets/images/service_products.png",
+          "color": "#DE7A23",
+          "link": "https://wa.me/6282333344919?text=Halo%20saya%20mau%20tanya%20 Glowing%20Package"
+        },
+        {
+          "title": "Ramadan Care",
+          "subtitle": "Beli 2 Gratis 1 Produk",
+          "image": "/assets/images/service_consult.png",
+          "color": "#F9A45B",
+          "link": "https://wa.me/6282333344919?text=Halo%20saya%20mau%20tanya%20Ramadan%20Care"
+        }
+      ]
+    },
+    "services": {
+      "tag": "Apa yang kami tawarkan",
+      "title": "Layanan Kami",
+      "items": [
+        {
+          "id": "slow-aging",
+          "title": "Slow Aging Treatment",
+          "description": "Perawatan menyeluruh yang membantu memperlambat tanda-tanda penuaan pada kulit secara alami.",
+          "image": "/assets/images/service_aging.png",
+          "video": "https://res.cloudinary.com/dwarsapox/video/upload/f_auto,q_auto/v1776465403/4264880-uhd_3840_2160_30fps_f3bhai.mp4",
+          "link": "https://wa.me/6282333344919?text=Halo%20saya%20mau%20tanya%20tentang%20Slow%20Aging%20Treatment"
+        },
+        {
+          "id": "produk",
+          "title": "Deoksi Produk Series",
+          "description": "Rangkaian produk perawatan kulit yang aman dan bermutu tinggi untuk melindungi dari radikal bebas serta mengurangi dampak stres oksidatif.",
+          "image": "/assets/images/service_products.png",
+          "video": "https://cdn.pixabay.com/video/2022/10/30/137122-765701203_large.mp4",
+          "link": "https://wa.me/6282333344919?text=Halo%20saya%20mau%20tanya%20tentang%20Produk%20Deoksi"
+        },
+        {
+          "id": "konsultasi",
+          "title": "Konsultasi",
+          "description": "Konsultasi dengan para dokter ahli kami untuk memperoleh solusi yang sesuai dan aman untuk kebutuhan kulit Anda.",
+          "image": "/assets/images/service_consult.png",
+          "video": "https://cdn.pixabay.com/video/2023/03/13/154449-807823521_large.mp4",
+          "link": "https://wa.me/6282333344919?text=Halo%20saya%20mau%20konsultasi"
+        }
+      ]
+    },
+    "gallery": {
+      "tag": "Fasilitas kami",
+      "title": "Galeri",
+      "description": "Kami selalu memberikan fasilitas dan pelayanan yang terbaik dan berkomitmen untuk memberikan pengalaman yang memuaskan serta pelayanan yang ramah kepada setiap konsumen.",
+      "items": [
+        {
+          "image": "/assets/images/gallery_one.png",
+          "label": "Ruang Tunggu Premium",
+          "large": true
+        },
+        {
+          "image": "/assets/images/gallery_two.png",
+          "label": "Ruang Treatment"
+        },
+        {
+          "image": "/assets/images/hero_clinic.png",
+          "label": "Interior Klinik"
+        },
+        {
+          "image": "/assets/images/service_aging.png",
+          "label": "Perawatan Wajah"
+        }
+      ],
+      "note": "Kami selalu menggunakan teknologi terkini dan metode yang terbukti efektif, untuk memastikan setiap perawatan yang dilakukan dapat memenuhi harapan dan kebutuhan konsumen dengan baik."
+    },
+    "videos": {
+      "tag": "Edukasi & Proses",
+      "title": "Video Treatment",
+      "description": "Saksikan langsung prosedur perawatan di fasilitas kami.",
+      "items": [
+        {
+          "title": "Prosedur Facial Treatment",
+          "src": "https://res.cloudinary.com/dwarsapox/video/upload/v1776465403/4264880-uhd_3840_2160_30fps_f3bhai.mp4",
+          "thumbnail": "/assets/images/service_aging.png",
+          "meta": "Lihat alur treatment dari awal sampai akhir dengan standar higienis klinik."
+        },
+        {
+          "title": "Edukasi Dokter: Keamanan Treatment",
+          "src": "https://cdn.pixabay.com/video/2023/03/13/154449-807823521_large.mp4",
+          "thumbnail": "/assets/images/service_consult.png",
+          "meta": "Penjelasan dokter tentang indikasi, keamanan, dan langkah konsultasi sebelum tindakan."
+        },
+        {
+          "title": "Perjalanan Hasil Perawatan",
+          "src": "https://cdn.pixabay.com/video/2022/10/30/137122-765701203_large.mp4",
+          "thumbnail": "/assets/images/service_products.png",
+          "meta": "Gambaran progres hasil perawatan untuk membantu kamu menetapkan ekspektasi realistis."
+        }
+      ]
+    },
+    "about": {
+      "tag": "Mengapa memilih kami",
+      "title": "Tentang Deoksi Beauty Clinic",
+      "description1": "Perawatan slow aging dan antioxidative care yang dirancang khusus untuk menjaga kecantikan alami Anda.",
+      "description2": "Dengan menggunakan teknologi dan bahan berkualitas tinggi, prosedur ini tidak hanya membantu memperlambat proses penuaan, tetapi juga memberikan manfaat dalam melembapkan dan menyegarkan kulit Anda.",
+      "image": "/assets/images/service_products.png",
+      "stats": [
+        {
+          "number": 150,
+          "label": "Testimoni Nyata"
+        },
+        {
+          "number": 20,
+          "label": "Review Positif"
+        }
+      ],
+      "features": [
+        "Teknologi Terkini",
+        "Bahan Berkualitas Tinggi",
+        "Dokter Profesional",
+        "Hasil Terbukti Efektif"
+      ],
+      "buttonText": "Konsultasi Gratis",
+      "whatsappLink": "https://wa.me/6282333344919?text=Halo%20saya%20mau%20tanya"
+    },
+    "reviews": {
+      "tag": "Trusted by customers",
+      "title": "Apa Kata Mereka?",
+      "googleMapsLink": "https://maps.app.goo.gl/xxx",
+      "items": [
+        {
+          "name": "Sarah Amalia",
+          "text": "Tempatnya sangat nyaman dan premium. Perawatan Slow Aging-nya bener-bener terasa bedanya di kulit aku, jadi lebih glowing!",
+          "rating": 5,
+          "treatment": "Slow Aging Treatment",
+          "date": "1 minggu yang lalu"
+        },
+        {
+          "name": "Budi Santoso",
+          "text": "Dokternya sangat edukatif, nggak cuma nawarin treatment tapi dijelasin fungsinya. Hasilnya memuaskan sekali.",
+          "rating": 5,
+          "treatment": "Konsultasi Ahli",
+          "date": "2 minggu yang lalu"
+        },
+        {
+          "name": "Indah Permata",
+          "text": "Produk Deoksi Series bener-bener cocok buat kulit sensitif aku. Baru pakai seminggu udah kelihatan cerahan.",
+          "rating": 5,
+          "treatment": "Deoksi Product Series",
+          "date": "1 bulan yang lalu"
+        },
+        {
+          "name": "Rina Wijaya",
+          "text": "Pelayanan ramah banget dari front office sampai dokternya. Prosedurnya higienis dan teknologinya canggih.",
+          "rating": 5,
+          "treatment": "Facial Treatment",
+          "date": "3 hari yang lalu"
+        }
+      ]
+    },
+    "location": {
+      "tag": "Temukan kami",
+      "title": "Lokasi Strategis & Nyaman",
+      "description": "Deoksi Beauty Clinic terletak di lokasi yang sangat strategis berjarak 50 meter dari Bundaran Sukarno Hatta dan premium di area Perumahan Permata Jingga, sangat mudah dijangkau dan dekat dengan berbagai pusat kota dengan suasana yang nyaman dan bersih.",
+      "mapEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3951.272!2d112.613!3d-7.953!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zN8KwNTcnMTAuOCJTIDExMsKwMzYnNDYuOCJF!5e0!3m2!1sid!2sid!4v1234567890",
+      "info": [
+        {
+          "type": "address",
+          "label": "Alamat",
+          "value": "Jl Puncak Borobudur Kav 6 Kota Malang"
+        },
+        {
+          "type": "hours",
+          "label": "Jam Pelayanan Klinik",
+          "value": "Senin - Minggu : 09.00 - 18.00"
+        },
+        {
+          "type": "phone",
+          "label": "Telepon",
+          "value": "+6282 3333 44919 (WA)"
+        },
+        {
+          "type": "email",
+          "label": "Email",
+          "value": "CustomerCare@deoksibeauty.com"
+        }
+      ]
+    }
+  },
+  "footer": {
+    "description": "Deoksi Beauty Clinic Malang menghadirkan perawatan slow aging dan antioxidative care berbasis sains.",
+    "socials": {
+      "instagram": "#",
+      "tiktok": "#",
+      "whatsapp": "https://wa.me/6282333344919"
+    }
+  }
+}
