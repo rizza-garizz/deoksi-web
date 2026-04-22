@@ -18,6 +18,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // === Navbar Scroll Effect ===
   const navbar = document.getElementById('navbar') || document.querySelector('nav.navbar');
+  const currentPath = window.location.pathname;
+  const heroSection = document.getElementById('beranda');
+  const isHomePage = currentPath === '/' || currentPath === '/index.html' || currentPath === '';
 
   const handleNavScroll = () => {
     if (!navbar) return;
@@ -27,6 +30,11 @@ document.addEventListener('DOMContentLoaded', async () => {
       navbar.style.top = '0';
     } else {
       navbar.classList.remove('scrolled');
+    }
+
+    if (navbar.id === 'navbar' && isHomePage && heroSection) {
+      const heroBottomTrigger = heroSection.offsetHeight - 120;
+      navbar.classList.toggle('home-hero-active', scrollY < heroBottomTrigger);
     }
   };
 
@@ -58,11 +66,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // === Smart Active Nav Link Logic (Global Audit Update) ===
   const navLinks = document.querySelectorAll('.nav-link');
-  const currentPath = window.location.pathname;
   
   const updateActiveLink = () => {
-    const isHomePage = currentPath === '/' || currentPath === '/index.html' || currentPath === '';
-    
     navLinks.forEach(link => {
       link.classList.remove('active');
       link.removeAttribute('aria-current');

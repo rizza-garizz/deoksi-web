@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/png" href="/assets/images/logo.png" />
   <title>Konsultasi - Deoksi Beauty Clinic Malang</title>
-  <meta name="description" content="Konsultasi gratis Deoksi Clinic: isi form untuk jadwal dan keluhan kulit." />
+  <meta name="description" content="Konsultasi gratis Deoksi Clinic: isi formulir untuk jadwal dan keluhan kulit." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -233,7 +233,7 @@
     <div class="container">
       <span class="section-tag animate-on-scroll">Langkah Awal</span>
       <h1 class="section-title animate-on-scroll">Konsultasi Gratis</h1>
-      <p class="animate-on-scroll">Isi form singkat di bawah ini. Tim kami akan menghubungi Anda melalui WhatsApp untuk konfirmasi jadwal.</p>
+      <p class="animate-on-scroll">Isi formulir singkat di bawah ini. Tim kami akan menghubungi Anda melalui WhatsApp untuk konfirmasi jadwal.</p>
     </div>
   </section>
 
@@ -243,7 +243,7 @@
         <div class="form-card animate-on-scroll">
           <div class="form-header">
             <div class="form-title">Form Konsultasi</div>
-            <div class="form-subtitle">Semua field wajib diisi. Pilih minimal 1 masalah kulit.</div>
+            <div class="form-subtitle">Semua field wajib diisi. Pilih minimal 1 keluhan atau kebutuhan perawatan.</div>
           </div>
 
           <form data-consult-form novalidate>
@@ -270,15 +270,22 @@
               </div>
 
               <div class="field full">
-                <label>Masalah kulit (pilih minimal 1)</label>
+                <label>Keluhan atau kebutuhan perawatan (pilih minimal 1)</label>
                 <div class="checkbox-box">
                   <div class="checkbox-grid" data-problem-grid>
                     <label class="check"><input type="checkbox" name="problems" value="Jerawat"> Jerawat</label>
-                    <label class="check"><input type="checkbox" name="problems" value="Bruntusan"> Bruntusan</label>
-                    <label class="check"><input type="checkbox" name="problems" value="Flek / Hiperpigmentasi"> Flek / Hiperpigmentasi</label>
-                    <label class="check"><input type="checkbox" name="problems" value="Kusam"> Kusam</label>
-                    <label class="check"><input type="checkbox" name="problems" value="Anti-aging / Kerutan"> Anti-aging / Kerutan</label>
-                    <label class="check"><input type="checkbox" name="problems" value="Sensitif / Kemerahan"> Sensitif / Kemerahan</label>
+                    <label class="check"><input type="checkbox" name="problems" value="Bruntusan / Komedo"> Bruntusan / Komedo</label>
+                    <label class="check"><input type="checkbox" name="problems" value="Bekas Jerawat"> Bekas Jerawat</label>
+                    <label class="check"><input type="checkbox" name="problems" value="Flek / Hiperpigmentasi / Melasma"> Flek / Hiperpigmentasi / Melasma</label>
+                    <label class="check"><input type="checkbox" name="problems" value="Kemerahan / Rosacea"> Kemerahan / Rosacea</label>
+                    <label class="check"><input type="checkbox" name="problems" value="Kulit Sensitif / Iritasi"> Kulit Sensitif / Iritasi</label>
+                    <label class="check"><input type="checkbox" name="problems" value="Kerutan / Tanda Penuaan Dini"> Kerutan / Tanda Penuaan Dini</label>
+                    <label class="check"><input type="checkbox" name="problems" value="Kulit Kusam / Tekstur Tidak Merata"> Kulit Kusam / Tekstur Tidak Merata</label>
+                    <label class="check"><input type="checkbox" name="problems" value="Pori Besar"> Pori Besar</label>
+                    <label class="check"><input type="checkbox" name="problems" value="Benang Hidung"> Benang Hidung</label>
+                    <label class="check"><input type="checkbox" name="problems" value="Implan Rambut"> Implan Rambut</label>
+                    <label class="check"><input type="checkbox" name="problems" value="Penyuburan Rambut"> Penyuburan Rambut</label>
+                    <label class="check"><input type="checkbox" name="problems" value="Lainnya"> Lainnya</label>
                   </div>
                 </div>
               </div>
@@ -397,7 +404,7 @@
 
         if (!hasCheckedProblem()) {
           e.preventDefault();
-          showError('Mohon pilih minimal 1 masalah kulit.');
+          showError('Mohon pilih minimal 1 keluhan atau kebutuhan perawatan.');
           const firstCheckbox = problemGrid ? problemGrid.querySelector('input[type="checkbox"]') : null;
           if (firstCheckbox) firstCheckbox.focus();
           return;

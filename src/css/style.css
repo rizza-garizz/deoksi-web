@@ -270,7 +270,7 @@ img {
 }
 
 .brand-dark {
-  color: var(--white);
+  color: var(--dark);
   transition: color 0.4s var(--ease-out);
   margin-left: 6px;
 }
@@ -279,10 +279,18 @@ img {
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 3.5px;
-  color: var(--white);
+  color: var(--dark);
   transition: color 0.4s var(--ease-out);
   text-align: center;
   width: 100%;
+}
+
+/* Homepage logo is white only while hero is in focus */
+#navbar.home-hero-active .brand-dark,
+#navbar.home-hero-active .brand-subtitle,
+#navbar.home-hero-active.scrolled .brand-dark,
+#navbar.home-hero-active.scrolled .brand-subtitle {
+  color: var(--white);
 }
 
 .nav-menu {
@@ -1791,10 +1799,121 @@ body[data-page="gallery"] .gallery-note {
   transform: translateY(-2px);
 }
 
+/* Reviews section standardization */
+#testimoni {
+  background: linear-gradient(180deg, #fbf6f1 0%, #f7efe8 100%);
+}
+
+#reviews-header {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+#reviews-header .section-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 18px;
+  border-radius: 999px;
+  background: rgba(247, 144, 62, 0.1);
+  border: 1px solid rgba(247, 144, 62, 0.16);
+  color: var(--primary-dark);
+  letter-spacing: 0.08em;
+}
+
+#reviews-header .section-title {
+  margin-top: 16px;
+}
+
+#reviews-slider {
+  padding-top: 12px;
+  padding-bottom: 36px;
+}
+
+#reviews-slider .review-card {
+  flex: 0 0 380px;
+  padding: 34px 32px;
+  border-radius: 28px;
+  border: 1px solid rgba(247,144,62,0.1);
+  box-shadow: 0 16px 32px rgba(26, 26, 26, 0.07);
+}
+
+#reviews-slider .review-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 22px 40px rgba(26, 26, 26, 0.1);
+  border-color: rgba(247,144,62,0.18);
+}
+
+#reviews-slider .review-stars {
+  margin-bottom: 18px;
+}
+
+#reviews-slider .review-text {
+  font-size: 1rem;
+  font-style: normal;
+  line-height: 1.85;
+  color: #343434;
+  margin-bottom: 26px;
+}
+
+#reviews-slider .review-author {
+  align-items: flex-start;
+  gap: 14px;
+}
+
+#reviews-slider .author-info h4 {
+  margin-bottom: 6px;
+}
+
+#reviews-slider .author-info span {
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+#testimoni .reviews-nav {
+  margin-top: 10px;
+}
+
+#testimoni .reviews-nav button {
+  width: 52px;
+  height: 52px;
+  box-shadow: 0 10px 20px rgba(26, 26, 26, 0.06);
+}
+
+#testimoni .reviews-footer {
+  margin-top: 48px;
+}
+
+#google-review-link {
+  min-height: 56px;
+  padding: 15px 24px;
+  border-radius: 18px;
+  border-color: rgba(247,144,62,0.14);
+  color: var(--dark);
+}
+
+#google-review-link:hover {
+  background: #fffdfb;
+  border-color: rgba(247,144,62,0.2);
+}
+
 @media (max-width: 768px) {
   .review-card {
     flex: 0 0 300px;
     padding: 30px;
+  }
+
+  #reviews-slider .review-card {
+    flex: 0 0 300px;
+    padding: 28px 24px;
+    border-radius: 24px;
+  }
+
+  #google-review-link {
+    width: 100%;
+    justify-content: center;
+    padding: 14px 18px;
   }
 }
 
