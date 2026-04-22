@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="/assets/images/logo.png" />
+  <title>Tentang - Deoksi Beauty Clinic Malang</title>
+  <meta name="description" content="Tentang Deoksi Clinic: visi misi, tim dokter, dan sertifikasi." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    .about-page {
+      padding: 40px 0 95px;
+      background: var(--gradient-cream);
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 26px;
+    }
+
+    .info-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(247,144,62,0.10);
+      box-shadow: var(--shadow-sm);
+      padding: 22px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .info-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 20% 0%, rgba(247,144,62,0.10), transparent 55%);
+      opacity: 0;
+      transition: opacity 0.35s var(--ease-out);
+      pointer-events: none;
+    }
+
+    .info-card:hover::before {
+      opacity: 1;
+    }
+
+    .info-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      color: var(--dark);
+      font-size: 1.15rem;
+      margin-bottom: 8px;
+    }
+
+    .info-text {
+      color: var(--text);
+      line-height: 1.8;
+      font-size: 0.92rem;
+    }
+
+    .section-block {
+      margin-top: 42px;
+    }
+
+    .section-heading {
+      text-align: center;
+      margin-bottom: 22px;
+    }
+
+    .doctor-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .doctor-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(247,144,62,0.10);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out), border-color 0.35s var(--ease-out);
+    }
+
+    .doctor-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-md);
+      border-color: rgba(247,144,62,0.25);
+    }
+
+    .doctor-photo {
+      height: 260px;
+      background: var(--cream-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .doctor-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transform: scale(1.02);
+      transition: transform 0.55s var(--ease-out);
+    }
+
+    .doctor-card:hover .doctor-photo img {
+      transform: scale(1.08);
+    }
+
+    .doctor-body {
+      padding: 18px 18px 20px;
+    }
+
+    .doctor-name {
+      font-family: var(--font-display);
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 6px;
+      font-size: 1.05rem;
+    }
+
+    .doctor-spec {
+      color: var(--primary-dark);
+      font-weight: 800;
+      font-size: 0.85rem;
+      margin-bottom: 10px;
+    }
+
+    .doctor-desc {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      line-height: 1.75;
+    }
+
+    /* Simple carousel */
+    .cert-shell {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 12px;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .cert-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      border: 1px solid rgba(247,144,62,0.18);
+      background: var(--white);
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out), border-color 0.25s var(--ease-out);
+    }
+
+    .cert-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      border-color: rgba(247,144,62,0.32);
+    }
+
+    .cert-track {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(220px, 1fr);
+      gap: 14px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      padding: 4px 2px 10px;
+      scrollbar-width: none;
+    }
+
+    .cert-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .cert-item {
+      scroll-snap-align: start;
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(247,144,62,0.10);
+      box-shadow: var(--shadow-sm);
+      padding: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .cert-badge {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: rgba(247,144,62,0.12);
+      color: var(--primary-dark);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      letter-spacing: 0.3px;
+    }
+
+    .cert-name {
+      font-weight: 900;
+      color: var(--dark);
+      letter-spacing: 0.2px;
+    }
+
+    .cert-desc {
+      color: var(--text-light);
+      font-size: 0.88rem;
+      margin-top: 4px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 992px) {
+      .two-col { grid-template-columns: 1fr; }
+      .doctor-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .cert-track { grid-auto-columns: minmax(210px, 1fr); }
+    }
+
+    @media (max-width: 600px) {
+      .doctor-grid { grid-template-columns: 1fr; }
+      .doctor-photo { height: 240px; }
+      .cert-shell { grid-template-columns: 1fr; }
+      .cert-btn { display: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER (template) -->
+  <nav class="navbar" data-navbar>
+    <div class="container nav-container">
+      <a href="#" class="brand-logo" data-nav-logo>
+        <div class="brand-title">
+          <span class="brand-orange">DEOKSI</span><span class="brand-dark">Clinic</span>
+        </div>
+        <div class="brand-subtitle">BEAUTY CENTER</div>
+      </a>
+
+      <button class="nav-toggle" data-nav-toggle aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="nav-menu" data-nav-menu>
+        <li><a href="/" class="nav-link">Beranda</a></li>
+        <li><a href="/layanan.html" class="nav-link">Layanan</a></li>
+        <li><a href="/produk.html" class="nav-link">Produk</a></li>
+        <li><a href="/galeri.html" class="nav-link">Galeri</a></li>
+        <li><a href="/tentang.html" class="nav-link active">Tentang</a></li>
+        <li><a href="/lokasi.html" class="nav-link">Lokasi</a></li>
+        <li><a href="/konsultasi.html" class="nav-link">Konsultasi</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero kecil -->
+  <section class="page-hero">
+    <div class="container">
+      <span class="section-tag animate-on-scroll">Mengenal Kami</span>
+      <h1 class="section-title animate-on-scroll">Tentang Deoksi</h1>
+      <p class="animate-on-scroll">Deoksi Clinic berfokus pada perawatan slow aging dan antioxidative care dengan standar layanan yang aman, rapi, dan nyaman.</p>
+    </div>
+  </section>
+
+  <section class="about-page">
+    <div class="container">
+      <!-- Visi & Misi -->
+      <div class="two-col">
+        <article class="info-card animate-on-scroll">
+          <h2 class="info-title">Visi</h2>
+          <p class="info-text">Menjadi klinik kecantikan tepercaya yang menghadirkan perawatan berbasis sains, aman, dan berorientasi pada hasil natural untuk setiap pasien.</p>
+        </article>
+
+        <article class="info-card animate-on-scroll">
+          <h2 class="info-title">Misi</h2>
+          <p class="info-text">Memberikan layanan personal yang profesional, penggunaan teknologi dan bahan berkualitas, serta edukasi perawatan kulit yang mudah dipahami dan konsisten.</p>
+        </article>
+      </div>
+
+      <!-- Tim Dokter -->
+      <div class="section-block">
+        <div class="section-heading">
+          <span class="section-tag animate-on-scroll">Para Ahli Kami</span>
+          <h2 class="section-title animate-on-scroll">Tim Dokter</h2>
+          <p class="section-desc animate-on-scroll">Ditangani oleh tenaga profesional dengan pendekatan yang aman dan terukur.</p>
+        </div>
+
+        <div class="doctor-grid">
+          <article class="doctor-card animate-on-scroll">
+            <div class="doctor-photo">
+              <img src="/assets/images/doctor1.jpg" alt="dr. Beni Lukandar" loading="lazy">
+            </div>
+            <div class="doctor-body">
+              <div class="doctor-name">dr. Beni Lukandar</div>
+              <div class="doctor-spec">Aesthetic Specialist</div>
+              <p class="doctor-desc">Berfokus pada perawatan slow aging dan rejuvenation dengan rencana treatment yang jelas dan aman.</p>
+            </div>
+          </article>
+
+          <article class="doctor-card animate-on-scroll">
+            <div class="doctor-photo">
+              <img src="/assets/images/doctor2.jpg" alt="dr. Zuliatul Chusniyah" loading="lazy">
+            </div>
+            <div class="doctor-body">
+              <div class="doctor-name">dr. Zuliatul Chusniyah</div>
+              <div class="doctor-spec">Dermatology Specialist</div>
+              <p class="doctor-desc">Menangani berbagai masalah kulit dengan pendekatan dermatologi dan perawatan antioxidative.</p>
+            </div>
+          </article>
+
+          <article class="doctor-card animate-on-scroll">
+            <div class="doctor-photo">
+              <img src="/assets/images/hero_clinic.png" alt="Tim Deoksi Clinic" loading="lazy">
+            </div>
+            <div class="doctor-body">
+              <div class="doctor-name">Tim Deoksi Clinic</div>
+              <div class="doctor-spec">Care & Support</div>
+              <p class="doctor-desc">Mendampingi pasien dari konsultasi hingga aftercare agar pengalaman perawatan terasa nyaman.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- Sertifikat -->
+      <div class="section-block">
+        <div class="section-heading">
+          <span class="section-tag animate-on-scroll">Standar & Legalitas</span>
+          <h2 class="section-title animate-on-scroll">Sertifikat</h2>
+          <p class="section-desc animate-on-scroll">Carousel sederhana untuk menampilkan sertifikasi dan standar yang kami ikuti.</p>
+        </div>
+
+        <div class="cert-shell">
+          <button type="button" class="cert-btn" data-cert-prev aria-label="Sebelumnya">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+
+          <div class="cert-track" data-cert-track>
+            <div class="cert-item">
+              <div>
+                <div class="cert-name">Kemenkes</div>
+                <div class="cert-desc">Memenuhi ketentuan kesehatan dan operasional klinik.</div>
+              </div>
+              <div class="cert-badge">KM</div>
+            </div>
+            <div class="cert-item">
+              <div>
+                <div class="cert-name">ISO</div>
+                <div class="cert-desc">Standar proses layanan untuk kualitas yang konsisten.</div>
+              </div>
+              <div class="cert-badge">ISO</div>
+            </div>
+            <div class="cert-item">
+              <div>
+                <div class="cert-name">BPOM</div>
+                <div class="cert-desc">Produk dan bahan mengikuti regulasi yang berlaku.</div>
+              </div>
+              <div class="cert-badge">BP</div>
+            </div>
+            <div class="cert-item">
+              <div>
+                <div class="cert-name">Halal</div>
+                <div class="cert-desc">Komitmen pada transparansi dan kenyamanan pasien.</div>
+              </div>
+              <div class="cert-badge">HL</div>
+            </div>
+            <div class="cert-item">
+              <div>
+                <div class="cert-name">FDA</div>
+                <div class="cert-desc">Referensi standar internasional untuk keamanan tertentu.</div>
+              </div>
+              <div class="cert-badge">FD</div>
+            </div>
+          </div>
+
+          <button type="button" class="cert-btn" data-cert-next aria-label="Berikutnya">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER (template) -->
+  <footer class="footer" data-footer data-static-footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#" class="brand-logo footer-logo-override">
+            <div class="brand-title">
+              <span class="brand-orange">DEOKSI</span><span class="brand-dark">Clinic</span>
+            </div>
+            <div class="brand-subtitle">BEAUTY CENTER</div>
+          </a>
+          <p class="footer-desc">Deoksi Clinic: perawatan berbasis sains, aman, dan nyaman untuk kebutuhan kulit Anda.</p>
+          <div class="footer-socials">
+            <a href="#" class="social-link" aria-label="Instagram">Instagram</a>
+            <a href="#" class="social-link" aria-label="TikTok">TikTok</a>
+            <a href="#" class="social-link" aria-label="WhatsApp">WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="footer-links">
+          <h4>Menu</h4>
+          <ul>
+            <li><a href="/">Beranda</a></li>
+            <li><a href="/layanan.html">Layanan</a></li>
+            <li><a href="/produk.html">Produk</a></li>
+            <li><a href="/galeri.html">Galeri</a></li>
+            <li><a href="/tentang.html">Tentang</a></li>
+            <li><a href="/lokasi.html">Lokasi</a></li>
+            <li><a href="/konsultasi.html">Konsultasi</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 Deoksi Beauty Clinic. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Toggle mobile menu tanpa ID milik beranda
+    const navToggle = document.querySelector('[data-nav-toggle]');
+    const navMenu = document.querySelector('[data-nav-menu]');
+    if (navToggle && navMenu) {
+      navToggle.addEventListener('click', () => {
+        navToggle.classList.toggle('active');
+        navMenu.classList.toggle('open');
+        document.body.style.overflow = navMenu.classList.contains('open') ? 'hidden' : '';
+      });
+    }
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        if (!navToggle || !navMenu) return;
+        navToggle.classList.remove('active');
+        navMenu.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // Carousel sederhana (scroll)
+    const track = document.querySelector('[data-cert-track]');
+    const prev = document.querySelector('[data-cert-prev]');
+    const next = document.querySelector('[data-cert-next]');
+    const step = () => (track ? Math.max(240, track.clientWidth * 0.7) : 320);
+
+    if (track && prev && next) {
+      next.addEventListener('click', () => track.scrollBy({ left: step(), behavior: 'smooth' }));
+      prev.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: 'smooth' }));
+    }
+  </script>
+
+  <script type="module" src="/src/js/main.js"></script>
+</body>
+</html>

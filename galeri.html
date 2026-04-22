@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="/assets/images/logo.png" />
+  <title>Galeri - Deoksi Beauty Clinic Malang</title>
+  <meta name="description" content="Galeri Deoksi Clinic: fasilitas, hasil treatment, dan event." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    .gallery-page {
+      padding: 40px 0 95px;
+      background: var(--gradient-cream);
+    }
+
+    .tabs-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      margin-top: 18px;
+    }
+
+    .tab-btn {
+      border: 1px solid rgba(247,144,62,0.18);
+      background: var(--white);
+      color: var(--dark);
+      border-radius: 999px;
+      padding: 10px 16px;
+      min-height: 44px;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      transition: transform 0.25s var(--ease-out), background 0.25s var(--ease-out), border-color 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .tab-btn:hover {
+      transform: translateY(-2px);
+      border-color: rgba(247,144,62,0.32);
+      box-shadow: var(--shadow-md);
+    }
+
+    .tab-btn.is-active {
+      background: var(--gradient-primary);
+      color: var(--white);
+      border-color: rgba(247,144,62,0.40);
+      box-shadow: 0 12px 28px rgba(247,144,62,0.20);
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 26px;
+    }
+
+    .photo-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(247,144,62,0.10);
+      background: var(--white);
+      box-shadow: var(--shadow-sm);
+      cursor: zoom-in;
+      transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out), border-color 0.35s var(--ease-out);
+    }
+
+    .photo-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-md);
+      border-color: rgba(247,144,62,0.25);
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      display: block;
+      transform: scale(1.01);
+      transition: transform 0.55s var(--ease-out);
+    }
+
+    .photo-card:hover img {
+      transform: scale(1.08);
+    }
+
+    .photo-caption {
+      position: absolute;
+      inset: auto 0 0 0;
+      padding: 12px 14px;
+      color: var(--white);
+      font-weight: 800;
+      letter-spacing: 0.2px;
+      background: linear-gradient(180deg, rgba(26, 26, 26, 0) 0%, rgba(26, 26, 26, 0.72) 100%);
+    }
+
+    .photo-card.is-hidden {
+      display: none;
+    }
+
+    /* Simple Lightbox */
+    .simple-lightbox {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 22px;
+      background: rgba(26,26,26,0.82);
+      z-index: 9999;
+    }
+
+    .simple-lightbox.is-open {
+      display: flex;
+    }
+
+    .lightbox-panel {
+      width: min(980px, 100%);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.55);
+      backdrop-filter: blur(8px);
+    }
+
+    .lightbox-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px;
+      color: rgba(255,255,255,0.92);
+      background: rgba(0,0,0,0.25);
+    }
+
+    .lightbox-title {
+      font-weight: 800;
+      font-size: 0.92rem;
+      letter-spacing: 0.2px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .lightbox-close {
+      border: 1px solid rgba(255,255,255,0.20);
+      background: rgba(255,255,255,0.10);
+      color: rgba(255,255,255,0.95);
+      border-radius: 999px;
+      padding: 10px 14px;
+      min-height: 40px;
+      font-weight: 900;
+      cursor: pointer;
+      transition: transform 0.2s var(--ease-out), background 0.2s var(--ease-out);
+    }
+
+    .lightbox-close:hover {
+      transform: translateY(-1px);
+      background: rgba(255,255,255,0.16);
+    }
+
+    .lightbox-media {
+      background: rgba(0,0,0,0.35);
+    }
+
+    .lightbox-media img {
+      width: 100%;
+      height: auto;
+      display: block;
+      max-height: 78vh;
+      object-fit: contain;
+    }
+
+    @media (max-width: 992px) {
+      .photo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .photo-card img { height: 240px; }
+    }
+
+    @media (max-width: 600px) {
+      .photo-grid { grid-template-columns: 1fr; }
+      .photo-card img { height: 230px; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER (template) -->
+  <nav class="navbar" data-navbar>
+    <div class="container nav-container">
+      <a href="#" class="brand-logo" data-nav-logo>
+        <div class="brand-title">
+          <span class="brand-orange">DEOKSI</span><span class="brand-dark">Clinic</span>
+        </div>
+        <div class="brand-subtitle">BEAUTY CENTER</div>
+      </a>
+
+      <button class="nav-toggle" data-nav-toggle aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="nav-menu" data-nav-menu>
+        <li><a href="/" class="nav-link">Beranda</a></li>
+        <li><a href="/layanan.html" class="nav-link">Layanan</a></li>
+        <li><a href="/produk.html" class="nav-link">Produk</a></li>
+        <li><a href="/galeri.html" class="nav-link active">Galeri</a></li>
+        <li><a href="/tentang.html" class="nav-link">Tentang</a></li>
+        <li><a href="/lokasi.html" class="nav-link">Lokasi</a></li>
+        <li><a href="/konsultasi.html" class="nav-link">Konsultasi</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero kecil -->
+  <section class="page-hero">
+    <div class="container">
+      <span class="section-tag animate-on-scroll">Fasilitas & Aktivitas</span>
+      <h1 class="section-title animate-on-scroll">Galeri Deoksi</h1>
+      <p class="animate-on-scroll">Jelajahi suasana klinik, dokumentasi hasil treatment, dan momen event bersama Deoksi Clinic.</p>
+
+      <div class="tabs-row animate-on-scroll" role="tablist" aria-label="Kategori galeri">
+        <button type="button" class="tab-btn is-active" role="tab" aria-selected="true" data-tab="fasilitas">Fasilitas</button>
+        <button type="button" class="tab-btn" role="tab" aria-selected="false" data-tab="hasil">Hasil Treatment</button>
+        <button type="button" class="tab-btn" role="tab" aria-selected="false" data-tab="event">Event</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Grid Foto -->
+  <section class="gallery-page">
+    <div class="container">
+      <div class="photo-grid" data-photo-grid>
+        <!-- Fasilitas -->
+        <figure class="photo-card animate-on-scroll" data-category="fasilitas" tabindex="0" aria-label="Buka foto: Ruang Tunggu Premium">
+          <img src="/assets/images/gallery_one.png" alt="Ruang Tunggu Premium" loading="lazy">
+          <figcaption class="photo-caption">Ruang Tunggu Premium</figcaption>
+        </figure>
+        <figure class="photo-card animate-on-scroll" data-category="fasilitas" tabindex="0" aria-label="Buka foto: Ruang Treatment">
+          <img src="/assets/images/gallery_two.png" alt="Ruang Treatment" loading="lazy">
+          <figcaption class="photo-caption">Ruang Treatment</figcaption>
+        </figure>
+        <figure class="photo-card animate-on-scroll" data-category="fasilitas" tabindex="0" aria-label="Buka foto: Interior Klinik">
+          <img src="/assets/images/hero_clinic.png" alt="Interior Klinik" loading="lazy">
+          <figcaption class="photo-caption">Interior Klinik</figcaption>
+        </figure>
+
+        <!-- Hasil Treatment (contoh) -->
+        <figure class="photo-card animate-on-scroll" data-category="hasil" tabindex="0" aria-label="Buka foto: Hasil Perawatan Wajah">
+          <img src="/assets/images/service_aging.png" alt="Hasil Perawatan Wajah" loading="lazy">
+          <figcaption class="photo-caption">Hasil Perawatan Wajah</figcaption>
+        </figure>
+        <figure class="photo-card animate-on-scroll" data-category="hasil" tabindex="0" aria-label="Buka foto: Skin Improvement">
+          <img src="/assets/images/service_consult.png" alt="Skin Improvement" loading="lazy">
+          <figcaption class="photo-caption">Skin Improvement</figcaption>
+        </figure>
+        <figure class="photo-card animate-on-scroll" data-category="hasil" tabindex="0" aria-label="Buka foto: After Care Routine">
+          <img src="/assets/images/service_products.png" alt="After Care Routine" loading="lazy">
+          <figcaption class="photo-caption">After Care Routine</figcaption>
+        </figure>
+
+        <!-- Event (contoh) -->
+        <figure class="photo-card animate-on-scroll" data-category="event" tabindex="0" aria-label="Buka foto: Event Clinic Day">
+          <img src="/assets/images/doctor1.jpg" alt="Event Clinic Day" loading="lazy">
+          <figcaption class="photo-caption">Event Clinic Day</figcaption>
+        </figure>
+        <figure class="photo-card animate-on-scroll" data-category="event" tabindex="0" aria-label="Buka foto: Workshop Skincare">
+          <img src="/assets/images/doctor2.jpg" alt="Workshop Skincare" loading="lazy">
+          <figcaption class="photo-caption">Workshop Skincare</figcaption>
+        </figure>
+        <figure class="photo-card animate-on-scroll" data-category="event" tabindex="0" aria-label="Buka foto: Member Gathering">
+          <img src="/assets/images/gallery_one.png" alt="Member Gathering" loading="lazy">
+          <figcaption class="photo-caption">Member Gathering</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox sederhana -->
+  <div class="simple-lightbox" data-lightbox role="dialog" aria-modal="true" aria-label="Tampilan foto besar">
+    <div class="lightbox-panel" data-lightbox-panel>
+      <div class="lightbox-topbar">
+        <div class="lightbox-title" data-lightbox-title>Foto</div>
+        <button type="button" class="lightbox-close" data-lightbox-close aria-label="Tutup">Tutup</button>
+      </div>
+      <div class="lightbox-media">
+        <img data-lightbox-img alt="" />
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER (template) -->
+  <footer class="footer" data-footer data-static-footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#" class="brand-logo footer-logo-override">
+            <div class="brand-title">
+              <span class="brand-orange">DEOKSI</span><span class="brand-dark">Clinic</span>
+            </div>
+            <div class="brand-subtitle">BEAUTY CENTER</div>
+          </a>
+          <p class="footer-desc">Galeri Deoksi Clinic: fasilitas nyaman, hasil perawatan, dan aktivitas event.</p>
+          <div class="footer-socials">
+            <a href="#" class="social-link" aria-label="Instagram">Instagram</a>
+            <a href="#" class="social-link" aria-label="TikTok">TikTok</a>
+            <a href="#" class="social-link" aria-label="WhatsApp">WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="footer-links">
+          <h4>Menu</h4>
+          <ul>
+            <li><a href="/">Beranda</a></li>
+            <li><a href="/layanan.html">Layanan</a></li>
+            <li><a href="/produk.html">Produk</a></li>
+            <li><a href="/galeri.html">Galeri</a></li>
+            <li><a href="/tentang.html">Tentang</a></li>
+            <li><a href="/lokasi.html">Lokasi</a></li>
+            <li><a href="/konsultasi.html">Konsultasi</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 Deoksi Beauty Clinic. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Toggle mobile menu tanpa ID milik beranda
+    const navToggle = document.querySelector('[data-nav-toggle]');
+    const navMenu = document.querySelector('[data-nav-menu]');
+    if (navToggle && navMenu) {
+      navToggle.addEventListener('click', () => {
+        navToggle.classList.toggle('active');
+        navMenu.classList.toggle('open');
+        document.body.style.overflow = navMenu.classList.contains('open') ? 'hidden' : '';
+      });
+    }
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        if (!navToggle || !navMenu) return;
+        navToggle.classList.remove('active');
+        navMenu.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // Tabs filter
+    const tabButtons = document.querySelectorAll('[data-tab]');
+    const photoCards = document.querySelectorAll('[data-category]');
+
+    const applyTab = (category) => {
+      photoCards.forEach(card => {
+        const c = card.getAttribute('data-category');
+        card.classList.toggle('is-hidden', c !== category);
+      });
+    };
+
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabButtons.forEach(b => {
+          b.classList.remove('is-active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        btn.classList.add('is-active');
+        btn.setAttribute('aria-selected', 'true');
+        applyTab(btn.getAttribute('data-tab'));
+      });
+    });
+
+    // Default tab
+    applyTab('fasilitas');
+
+    // Lightbox sederhana
+    const lightbox = document.querySelector('[data-lightbox]');
+    const lightboxImg = document.querySelector('[data-lightbox-img]');
+    const lightboxTitle = document.querySelector('[data-lightbox-title]');
+    const lightboxClose = document.querySelector('[data-lightbox-close]');
+    const lightboxPanel = document.querySelector('[data-lightbox-panel]');
+    let lastFocusEl = null;
+
+    const openLightbox = (src, title) => {
+      if (!lightbox || !lightboxImg || !lightboxTitle) return;
+      lastFocusEl = document.activeElement;
+      lightboxImg.src = src;
+      lightboxImg.alt = title || 'Foto galeri';
+      lightboxTitle.textContent = title || 'Foto';
+      lightbox.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+      if (lightboxClose) lightboxClose.focus();
+    };
+
+    const closeLightbox = () => {
+      if (!lightbox || !lightboxImg) return;
+      lightbox.classList.remove('is-open');
+      lightboxImg.src = '';
+      document.body.style.overflow = '';
+      if (lastFocusEl && typeof lastFocusEl.focus === 'function') lastFocusEl.focus();
+    };
+
+    const attachOpen = (card) => {
+      const img = card.querySelector('img');
+      const caption = card.querySelector('.photo-caption');
+      const title = caption ? caption.textContent.trim() : (img ? img.alt : 'Foto');
+      const src = img ? img.currentSrc || img.src : '';
+      if (!src) return;
+      openLightbox(src, title);
+    };
+
+    photoCards.forEach(card => {
+      card.addEventListener('click', () => attachOpen(card));
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          attachOpen(card);
+        }
+      });
+    });
+
+    if (lightboxClose) {
+      lightboxClose.addEventListener('click', closeLightbox);
+    }
+
+    if (lightbox) {
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) closeLightbox();
+      });
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lightbox && lightbox.classList.contains('is-open')) {
+        closeLightbox();
+      }
+      if (e.key === 'Tab' && lightbox && lightbox.classList.contains('is-open') && lightboxPanel) {
+        const focusables = lightboxPanel.querySelectorAll('button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])');
+        if (!focusables.length) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    });
+  </script>
+
+  <script type="module" src="/src/js/main.js"></script>
+</body>
+</html>

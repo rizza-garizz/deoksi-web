@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="/assets/images/logo.png" />
+  <title>Layanan - Deoksi Beauty Clinic Malang</title>
+  <meta name="description" content="Layanan klinik kecantikan Deoksi Clinic: Facial, Laser, Injeksi, dan Acne Care." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    .services-page {
+      padding: 40px 0 90px;
+      background: var(--gradient-cream);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 28px;
+    }
+
+    .service-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(247,144,62,0.10);
+      box-shadow: var(--shadow-sm);
+      padding: 22px;
+      transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out), border-color 0.35s var(--ease-out);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 20% 0%, rgba(247,144,62,0.10), transparent 55%);
+      opacity: 0;
+      transition: opacity 0.35s var(--ease-out);
+      pointer-events: none;
+    }
+
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-md);
+      border-color: rgba(247,144,62,0.25);
+    }
+
+    .service-card:hover::before {
+      opacity: 1;
+    }
+
+    .service-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 8px;
+      font-size: 1.15rem;
+    }
+
+    .service-desc {
+      color: var(--text);
+      line-height: 1.75;
+      font-size: 0.92rem;
+      margin-bottom: 16px;
+    }
+
+    .service-actions {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .service-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: var(--gradient-primary);
+      color: var(--white);
+      font-weight: 800;
+      letter-spacing: 0.3px;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      transition: transform 0.25s var(--ease-out), filter 0.25s var(--ease-out);
+      box-shadow: 0 10px 25px rgba(247,144,62,0.18);
+    }
+
+    .service-btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(0.98);
+    }
+
+    .service-btn:active {
+      transform: translateY(0);
+    }
+
+    @media (max-width: 992px) {
+      .services-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 600px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .service-card { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <nav class="navbar" data-navbar>
+    <div class="container nav-container">
+      <a href="#" class="brand-logo" data-nav-logo>
+        <div class="brand-title">
+          <span class="brand-orange">DEOKSI</span><span class="brand-dark">Clinic</span>
+        </div>
+        <div class="brand-subtitle">BEAUTY CENTER</div>
+      </a>
+
+      <button class="nav-toggle" data-nav-toggle aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="nav-menu" data-nav-menu>
+        <li><a href="/" class="nav-link">Beranda</a></li>
+        <li><a href="/layanan.html" class="nav-link active">Layanan</a></li>
+        <li><a href="/produk.html" class="nav-link">Produk</a></li>
+        <li><a href="/galeri.html" class="nav-link">Galeri</a></li>
+        <li><a href="/tentang.html" class="nav-link">Tentang</a></li>
+        <li><a href="/lokasi.html" class="nav-link">Lokasi</a></li>
+        <li><a href="/konsultasi.html" class="nav-link">Konsultasi</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero kecil -->
+  <section class="page-hero">
+    <div class="container">
+      <span class="section-tag animate-on-scroll">Apa yang kami tawarkan</span>
+      <h1 class="section-title animate-on-scroll">Layanan Kami</h1>
+      <p class="animate-on-scroll">Pilih layanan sesuai kebutuhan kulit Anda. Konsultasi dulu untuk rekomendasi yang paling aman dan tepat.</p>
+    </div>
+  </section>
+
+  <!-- Konten utama -->
+  <section class="services-page">
+    <div class="container">
+      <div class="services-grid">
+        <article class="service-card animate-on-scroll">
+          <h3 class="service-title">Facial</h3>
+          <p class="service-desc">Perawatan wajah untuk membersihkan, menutrisi, dan membantu kulit tampak lebih segar dan sehat.</p>
+          <div class="service-actions">
+            <a class="service-btn" href="/konsultasi.html">Detail</a>
+          </div>
+        </article>
+
+        <article class="service-card animate-on-scroll">
+          <h3 class="service-title">Laser</h3>
+          <p class="service-desc">Teknologi laser untuk membantu peremajaan kulit, meratakan tone, dan menangani masalah kulit tertentu.</p>
+          <div class="service-actions">
+            <a class="service-btn" href="/konsultasi.html">Detail</a>
+          </div>
+        </article>
+
+        <article class="service-card animate-on-scroll">
+          <h3 class="service-title">Injeksi</h3>
+          <p class="service-desc">Tindakan injeksi oleh tenaga profesional sesuai kebutuhan, dengan evaluasi kondisi kulit terlebih dahulu.</p>
+          <div class="service-actions">
+            <a class="service-btn" href="/konsultasi.html">Detail</a>
+          </div>
+        </article>
+
+        <article class="service-card animate-on-scroll">
+          <h3 class="service-title">Acne Care</h3>
+          <p class="service-desc">Rangkaian perawatan untuk membantu mengurangi jerawat, menenangkan inflamasi, dan merawat bekas jerawat.</p>
+          <div class="service-actions">
+            <a class="service-btn" href="/konsultasi.html">Detail</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" data-footer data-static-footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#" class="brand-logo footer-logo-override">
+            <div class="brand-title">
+              <span class="brand-orange">DEOKSI</span><span class="brand-dark">Clinic</span>
+            </div>
+            <div class="brand-subtitle">BEAUTY CENTER</div>
+          </a>
+          <p class="footer-desc">Klinik kecantikan dengan layanan slow aging dan antioxidative care di Malang.</p>
+          <div class="footer-socials">
+            <a href="#" class="social-link" aria-label="Instagram">Instagram</a>
+            <a href="#" class="social-link" aria-label="TikTok">TikTok</a>
+            <a href="#" class="social-link" aria-label="WhatsApp">WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="footer-links">
+          <h4>Menu</h4>
+          <ul>
+            <li><a href="/">Beranda</a></li>
+            <li><a href="/layanan.html">Layanan</a></li>
+            <li><a href="/produk.html">Produk</a></li>
+            <li><a href="/galeri.html">Galeri</a></li>
+            <li><a href="/tentang.html">Tentang</a></li>
+            <li><a href="/lokasi.html">Lokasi</a></li>
+            <li><a href="/konsultasi.html">Konsultasi</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 Deoksi Beauty Clinic. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Toggle mobile menu tanpa ID beranda
+    const navToggle = document.querySelector('[data-nav-toggle]');
+    const navMenu = document.querySelector('[data-nav-menu]');
+    if (navToggle && navMenu) {
+      navToggle.addEventListener('click', () => {
+        navToggle.classList.toggle('active');
+        navMenu.classList.toggle('open');
+        document.body.style.overflow = navMenu.classList.contains('open') ? 'hidden' : '';
+      });
+    }
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        if (!navToggle || !navMenu) return;
+        navToggle.classList.remove('active');
+        navMenu.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+  </script>
+
+  <script type="module" src="/src/js/main.js"></script>
+</body>
+</html>
