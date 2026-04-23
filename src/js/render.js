@@ -309,49 +309,59 @@ function renderContent(data) {
     `;
     
     googleReviewLink.href = data.sections.reviews.googleMapsLink;
-    
-    reviewsSlider.innerHTML = data.sections.reviews.items.map(item => `
-      <div class="review-card">
-        <div class="review-stars">
-          ${Array(item.rating).fill('<svg width="18" height="18" viewBox="0 0 24 24" fill="#F7903E"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>').join('')}
-        </div>
-        <p class="review-text">"${item.text}"</p>
-        <div class="review-author">
-          <div class="author-info">
-            <h4>${item.name}</h4>
-            <span>${item.treatment} • ${item.date}</span>
+
+    const reviewItems = data.sections.reviews.items;
+    const cardsPerView = window.innerWidth <= 768 ? 1 : 3;
+    let reviewPage = 0;
+
+    const renderReviewCards = () => {
+      const totalPages = Math.max(1, Math.ceil(reviewItems.length / cardsPerView));
+      const start = reviewPage * cardsPerView;
+      const currentItems = reviewItems.slice(start, start + cardsPerView);
+
+      reviewsSlider.innerHTML = currentItems.map(item => `
+        <div class="review-card">
+          <div class="review-stars">
+            ${Array(item.rating).fill('<svg width="18" height="18" viewBox="0 0 24 24" fill="#F7903E"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>').join('')}
           </div>
-          <div class="google-verify">
-            <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png" alt="Google" width="40">
+          <p class="review-text">"${item.text}"</p>
+          <div class="review-author">
+            <div class="author-info">
+              <h4>${item.name}</h4>
+              <span>${item.treatment} • ${item.date}</span>
+            </div>
+            <div class="google-verify">
+              <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png" alt="Google" width="40">
+            </div>
           </div>
         </div>
-      </div>
-    `).join('');
+      `).join('');
+
+      const prevBtn = document.querySelector('.rev-prev');
+      const nextBtn = document.querySelector('.rev-next');
+      if (prevBtn) prevBtn.disabled = totalPages <= 1;
+      if (nextBtn) nextBtn.disabled = totalPages <= 1;
+    };
 
     // Simple Slider Logic
     const prevBtn = document.querySelector('.rev-prev');
     const nextBtn = document.querySelector('.rev-next');
-    let scrollPos = 0;
 
     if (prevBtn && nextBtn) {
       nextBtn.addEventListener('click', () => {
-        const cardWidth = reviewsSlider.querySelector('.review-card').offsetWidth + 24;
-        scrollPos += cardWidth;
-        if (scrollPos > reviewsSlider.scrollWidth - reviewsSlider.offsetWidth) {
-          scrollPos = 0;
-        }
-        reviewsSlider.scrollTo({ left: scrollPos, behavior: 'smooth' });
+        const totalPages = Math.max(1, Math.ceil(reviewItems.length / cardsPerView));
+        reviewPage = (reviewPage + 1) % totalPages;
+        renderReviewCards();
       });
 
       prevBtn.addEventListener('click', () => {
-        const cardWidth = reviewsSlider.querySelector('.review-card').offsetWidth + 24;
-        scrollPos -= cardWidth;
-        if (scrollPos < 0) {
-          scrollPos = reviewsSlider.scrollWidth - reviewsSlider.offsetWidth;
-        }
-        reviewsSlider.scrollTo({ left: scrollPos, behavior: 'smooth' });
+        const totalPages = Math.max(1, Math.ceil(reviewItems.length / cardsPerView));
+        reviewPage = (reviewPage - 1 + totalPages) % totalPages;
+        renderReviewCards();
       });
     }
+
+    renderReviewCards();
   }
 
   // 5. Location Section
