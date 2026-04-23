@@ -2050,8 +2050,8 @@ body[data-page="gallery"] .gallery-note {
    FOOTER
    ===================== */
 .footer {
-  background: var(--gradient-dark);
-  color: var(--white-soft);
+  background: linear-gradient(180deg, #fffbf7 0%, #fff1e8 55%, #f6e1e7 100%);
+  color: var(--text);
   padding: 70px 0 0;
   content-visibility: auto;
   contain-intrinsic-size: 0 400px;
@@ -2062,7 +2062,7 @@ body[data-page="gallery"] .gallery-note {
   grid-template-columns: 1.5fr 0.8fr 1.2fr;
   gap: 60px;
   padding-bottom: 50px;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(145, 88, 70, 0.12);
 }
 
 .footer-logo-override {
@@ -2071,12 +2071,12 @@ body[data-page="gallery"] .gallery-note {
 
 .footer-logo-override .brand-dark,
 .footer-logo-override .brand-subtitle {
-  color: var(--white);
+  color: var(--dark);
 }
 
 .footer-desc {
   font-size: 0.9rem;
-  color: rgba(255,255,255,0.55);
+  color: rgba(74, 52, 46, 0.76);
   line-height: 1.8;
   margin-bottom: 24px;
 }
@@ -2092,9 +2092,9 @@ body[data-page="gallery"] .gallery-note {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255,255,255,0.06);
+  background: rgba(247, 144, 62, 0.10);
   border-radius: 12px;
-  color: rgba(255,255,255,0.6);
+  color: var(--primary-dark);
   transition: all 0.3s var(--ease-out);
 }
 
@@ -2108,7 +2108,7 @@ body[data-page="gallery"] .gallery-note {
   font-family: var(--font-display);
   font-size: 1.1rem;
   font-weight: 600;
-  color: var(--white);
+  color: var(--dark);
   margin-bottom: 20px;
 }
 
@@ -2119,7 +2119,7 @@ body[data-page="gallery"] .gallery-note {
 .footer-links li a,
 .footer-links li {
   font-size: 0.88rem;
-  color: rgba(255,255,255,0.5);
+  color: rgba(74, 52, 46, 0.76);
   display: flex;
   align-items: flex-start;
   gap: 8px;
@@ -2144,7 +2144,7 @@ body[data-page="gallery"] .gallery-note {
 
 .footer-bottom p {
   font-size: 0.82rem;
-  color: rgba(255,255,255,0.35);
+  color: rgba(74, 52, 46, 0.58);
 }
 
 /* =====================
